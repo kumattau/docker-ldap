@@ -1,0 +1,35 @@
+dn: dc=example,dc=org
+objectClass: dcObject
+objectClass: organization
+dc: example
+o: example
+
+dn: ou=people,dc=example,dc=org
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=test,ou=people,dc=example,dc=org
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: inetOrgPerson
+uid: test
+userPassword: example.org
+uidNumber: 10000
+gidNumber: 10000
+homeDirectory: /home/test
+loginShell: /bin/bash
+givenName: Test
+sn: EXAMPLE
+cn: Test EXAMPLE
+mail: test@example.org
+
+dn: cn=test,ou=groups,dc=example,dc=org
+objectClass: posixGroup
+cn: test
+gidNumber: 10000
+memberUid: test
+

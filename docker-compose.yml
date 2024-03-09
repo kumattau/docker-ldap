@@ -1,0 +1,32 @@
+services:
+  ldap:
+    build: "./"
+    restart: "unless-stopped"
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - "./init.ldif:/etc/openldap/init.ldif"
+
+  ldap-ui:
+    image: "dnknth/ldap-ui"
+    restart: "unless-stopped"
+    environment:
+      - "LDAP_URL=ldap://ldap/"
+      - "BASE_DN=dc=example,dc=org"
+      - "BIND_DN=cn=admin,dc=example,dc=org"
+      - "BIND_PASSWORD=admin"
+    ports:
+      - "8081:5000"
+
+  ldap-am:
+    image: "ghcr.io/ldapaccountmanager/lam:latest"
+    restart: "unless-stopped"
+    environment:
+      - "LDAP_SERVER=ldap://ldap/"
+      - "LDAP_BASE_DN=dc=example,dc=org"
+      - "LDAP_ADMIN_USER=cn=admin,dc=example,dc=org"
+      - "LDAP_ADMIN_PASSWORD=admin"
+    ports:
+      - "8080:80"
+
